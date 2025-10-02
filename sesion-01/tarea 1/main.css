@@ -1,16 +1,17 @@
-*{
+body {
+    /* Color de fondo marrón/café similar a la imagen original */
+    background-color: #8B5A2B; 
+    
+    /* Configuración para centrar el canvas vertical y horizontalmente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    overflow: hidden;
 }
 
-canvas{}
-
-#lienzo{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    
+canvas {
+    /* Asegura que el canvas se muestre como un bloque limpio sin estilos predeterminados */
+    display: block;
 }

@@ -1,21 +1,116 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Patrón Circular</title>
-  <style>
-    body {
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: #7b4f1c; /* marrón */
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Composición "Rebanadas de Pizza"</title>
+    
+    <style>
+        body {
+            background-color: #7B4B27; /* Color café oscuro */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+            /* Opcional: añade un borde si quieres ver los límites del canvas */
+            /* border: 1px solid rgba(255, 255, 255, 0.2); */ 
+        }
+    </style>
 </head>
 <body>
-  <canvas id="canvas" width="600" height="600"></canvas>
-  <script src="script.js"></script>
+
+    <canvas id="composicionCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('composicionCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // --- PARÁMETROS AJUSTADOS PARA EL EFECTO "REBANADA DE PIZZA" Y CUADRADO CENTRAL ---
+        const TAMANO = 600;             // Tamaño del lienzo (Ancho y Alto)
+        const NUM_ANILLOS = 10;         // Cantidad de líneas/rebanadas
+        const ESPACIADO = 30;           // Distancia entre cada "borde" de la rebanada
+        const GROSOR_LINEA = 12;        // Grosor de la línea blanca
+        const TAMANO_CUADRADO_CENTRAL = 70; // Tamaño del cuadrado vacío en el centro
+
+        // Configuración Inicial del Canvas
+        canvas.width = TAMANO;
+        canvas.height = TAMANO;
+
+        ctx.strokeStyle = '#FFFFFF'; // Color de las líneas
+        ctx.lineWidth = GROSOR_LINEA;
+        ctx.lineCap = 'butt'; // Extremos de línea rectos para un acabado más nítido
+
+        // Definimos las 4 coordenadas centrales para los arcos (las esquinas del canvas)
+        const CENTRO_ARCO_TL_X = 0;           // Top-Left (Superior Izquierda)
+        const CENTRO_ARCO_TL_Y = 0;
+
+        const CENTRO_ARCO_TR_X = TAMANO;      // Top-Right (Superior Derecha)
+        const CENTRO_ARCO_TR_Y = 0;
+
+        const CENTRO_ARCO_BR_X = TAMANO;      // Bottom-Right (Inferior Derecha)
+        const CENTRO_ARCO_BR_Y = TAMANO;
+
+        const CENTRO_ARCO_BL_X = 0;           // Bottom-Left (Inferior Izquierda)
+        const CENTRO_ARCO_BL_Y = TAMANO;
+
+        function dibujarComposicion() {
+            // Iteramos para dibujar cada "rebanada" (anillo)
+            for (let i = 1; i <= NUM_ANILLOS; i++) {
+                // El radio para el arco actual. Crece desde la esquina.
+                const radioActual = i * ESPACIADO;
+
+                // ----------------------------------------------------------------------
+                // DIBUJAMOS CADA UNO DE LOS 4 ARCOS QUE FORMAN LA COMPOSICIÓN
+
+                // 1. CUADRANTE SUPERIOR IZQUIERDO (Arco con centro en (0,0))
+                // Dibuja desde 0 a 90 grados (creciendo hacia el centro de la composición)
+                ctx.beginPath();
+                ctx.arc(CENTRO_ARCO_TL_X, CENTRO_ARCO_TL_Y, radioActual, 
+                        0 * Math.PI / 180, 90 * Math.PI / 180);
+                ctx.stroke();
+
+                // 2. CUADRANTE SUPERIOR DERECHO (Arco con centro en (TAMANO,0))
+                // Dibuja desde 90 a 180 grados
+                ctx.beginPath();
+                ctx.arc(CENTRO_ARCO_TR_X, CENTRO_ARCO_TR_Y, radioActual, 
+                        90 * Math.PI / 180, 180 * Math.PI / 180);
+                ctx.stroke();
+
+                // 3. CUADRANTE INFERIOR DERECHO (Arco con centro en (TAMANO,TAMANO))
+                // Dibuja desde 180 a 270 grados
+                ctx.beginPath();
+                ctx.arc(CENTRO_ARCO_BR_X, CENTRO_ARCO_BR_Y, radioActual, 
+                        180 * Math.PI / 180, 270 * Math.PI / 180);
+                ctx.stroke();
+                
+                // 4. CUADRANTE INFERIOR IZQUIERDO (Arco con centro en (0,TAMANO))
+                // Dibuja desde 270 a 360/0 grados
+                ctx.beginPath();
+                ctx.arc(CENTRO_ARCO_BL_X, CENTRO_ARCO_BL_Y, radioActual, 
+                        270 * Math.PI / 180, 0 * Math.PI / 180);
+                ctx.stroke();
+            }
+
+            // --- DIBUJAR EL CUADRADO CENTRAL ---
+            // Este cuadrado se dibuja *encima* de los arcos internos para crear el vacío.
+            ctx.fillStyle = '#7B4B27'; // Usamos el mismo color del fondo
+            
+            // Calculamos la posición del cuadrado para que esté perfectamente centrado
+            const centroCanvasX = TAMANO / 2;
+            const centroCanvasY = TAMANO / 2;
+            const xCuadrado = centroCanvasX - TAMANO_CUADRADO_CENTRAL / 2;
+            const yCuadrado = centroCanvasY - TAMANO_CUADRADO_CENTRAL / 2;
+
+            ctx.fillRect(xCuadrado, yCuadrado, TAMANO_CUADRADO_CENTRAL, TAMANO_CUADRADO_CENTRAL);
+        }
+
+        // 🚀 Ejecutar la función de dibujo al cargar la página
+        dibujarComposicion();
+    </script>
 </body>
 </html>

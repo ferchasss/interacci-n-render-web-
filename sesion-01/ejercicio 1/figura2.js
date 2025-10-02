@@ -21,7 +21,7 @@ const centerX = canvas.width / 2;
 
 const startY = (canvas.height - (rows * radius *0.2 + (rows - 1) * gap)) / 2 + radius;
 
-ctx.strokeStyle = 'red';
+ctx.strokeStyle = 'white';
 ctx.lineWidth = 3;
 
 for (let row = 0; row < rows; row++) {
