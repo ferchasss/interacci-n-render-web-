@@ -1,4 +1,4 @@
-console.log("Ejercicio 03");
+console.log("tarea sol");
 
 console.log(gsap);
 
@@ -15,7 +15,7 @@ function dibujarCirculo(x, y) {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpia el canvas
     ctx.beginPath();
     ctx.fillStyle = "orange";
-    ctx.ellipse(x, y, 70, 70, 0, 0, Math.PI * 2);
+    ctx.ellipse(x, y, 100, 100, 0, 0, Math.PI * 2);
     ctx.fill();
     ctx.closePath();
 }
