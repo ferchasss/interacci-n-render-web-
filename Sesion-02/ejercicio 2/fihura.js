@@ -18,5 +18,5 @@ img.onload = function() {
 
     //renderizar imagen 
    // ctx.drawFocusIfNeeded(this.x, this.y, this.width, height);  Image
-   ctx.drawImage(img, 50, 30, 1000, 100, )
+   ctx.drawImage(img, 100, 30, 1000, 100, )
     };
