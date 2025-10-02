@@ -9,7 +9,7 @@ canvas.height =window.innerHeight;
 //cargar imagen
 var img = new Image();
 //2.1 especificar cual es la imagen 
-var path = "./imagenes/sesion 1.png";
+var path = "./imagenes/sesion 1.jpeg";
 img.src=path;
 // encontrar el evento de carga "load"
 img.onload = function() {
@@ -18,5 +18,5 @@ img.onload = function() {
 
     //renderizar imagen 
    // ctx.drawFocusIfNeeded(this.x, this.y, this.width, height);  Image
-   ctx.drawImage(img, 100, 30, 1000, 100, )
+   ctx.drawImage(img, 30, 50, 500, 500, )
     };
