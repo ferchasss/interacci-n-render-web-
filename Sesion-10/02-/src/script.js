@@ -71,6 +71,13 @@ window.addEventListener('mousemove', (event) => {
    
 });
 
+window.addEventListener('click', () => {
+   if(currentIntersect) {
+       object1.material.color = new THREE.Color("#ffff00");
+       console.log("Click sobre el mesh.");
+   }
+});
+
 //// Raycaster.
 const raycaster = new THREE.Raycaster();
 let currentIntersect = null;

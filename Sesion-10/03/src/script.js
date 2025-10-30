@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-
+import gsap from 'gsap';
 /**
  * Base
  */
@@ -61,20 +61,19 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-//// Mouse.
-const mouse = new THREE.Vector2()
+
+/**
+ * Raycaster
+ */
+const raycaster = new THREE.Raycaster()
+const pointer = new THREE.Vector2()
+
+// Mouse move handler
 window.addEventListener('mousemove', (event) => {
-   // Coordenadas del mouse "normalizadas".
-   mouse.x = event.clientX / sizes.width * 2 - 1;
-   mouse.y = - (event.clientY / sizes.height) * 2 + 1;
-
-   
-});
-
-//// Raycaster.
-const raycaster = new THREE.Raycaster();
-let currentIntersect = null;
-const objectsToTest = [object1];
+    // Convert mouse position to normalized device coordinates
+    pointer.x = (event.clientX / sizes.width) * 2 - 1
+    pointer.y = - (event.clientY / sizes.height) * 2 + 1
+})
 
 /**
  * Animate
@@ -84,28 +83,21 @@ const clock = new THREE.Clock();
 const tick = () => {
     const elapsedTime = clock.getElapsedTime();
 
+    // Update raycaster
+    raycaster.setFromCamera(pointer, camera)
+    const intersects = raycaster.intersectObject(object1)
+
+    if(intersects.length) {
+        // Mouse enter
+        gsap.to(object1.scale, { x: 1.5, y: 1.5, z: 1.5, duration: 0.3 })
+    } else {
+        // Mouse leave
+        gsap.to(object1.scale, { x: 1, y: 1, z: 1, duration: 0.3 })
+    }
+
     // Animate objects
     object1.position.y = Math.sin(elapsedTime * 2) * 0.1;
 
- // Proyecta un rayo infinito hacia la posición del mouse desde la cámara.
-   raycaster.setFromCamera(mouse, camera);
-   // Devuelve la información obtenida de los objetos que son atravesados por el rayo.
-   const intersects = raycaster.intersectObjects(objectsToTest)
-// con este código se cambia el color cuando el mouse está sobre el objeto
-   if(intersects.length) {
-       if(!currentIntersect) {
-       console.log('mouse enter') 
-       object1.material.color = new THREE.Color('#04ff00');
-    }
-       console.log(mouse);
-       currentIntersect = intersects[0];
-   } else {
-       if(currentIntersect) { 
-        console.log('mouse leave') 
-        object1.material.color = new THREE.Color('#ff6600');
-    }
-       currentIntersect = null;
-   }
     // Render
     renderer.render(scene, camera);
 
