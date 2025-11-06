@@ -23,6 +23,7 @@ img.style.left = "50px";
 img.style.position = "absolute";
 document.body.appendChild(img);
 }
+createFloatingImage();
 // 02. Renderizar “n” imágenes.
 // 03. Posicionarlas según el mouse.
 // 04. Mostrarlas en ciclo.
