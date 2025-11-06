@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import gsap from 'gsap';
+console.log (gsap);
 /**
  * Base
  */
@@ -88,6 +89,7 @@ window.addEventListener('mousemove', (event) => {
 // Mouse click handler
 window.addEventListener('click', (event) => {
     // Convert mouse position to normalized device coordinates
+   
     pointer.x = (event.clientX / sizes.width) * 2 - 1
     pointer.y = - (event.clientY / sizes.height) * 2 + 1
     
@@ -110,6 +112,7 @@ window.addEventListener('click', (event) => {
  * Animate
  */
 const clock = new THREE.Clock();
+var mouseOnTop = false;
 
 const tick = () => {
     const elapsedTime = clock.getElapsedTime();
