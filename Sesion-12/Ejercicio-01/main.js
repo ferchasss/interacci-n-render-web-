@@ -13,7 +13,8 @@ otros: esquinas redondeadas, bordes, sombra proyectada, etc.
 4.Agregarla al <Documento>.
 5.Agrupar estas instrucciones en una función.
 */
-function createFloatingImage() {
+function createFloatingImage(posX, posY) {
+console.log(posX, posY);
 const img = document.createElement("img")
 img.src = "./assets/p1.jpg";
 img.style.width = "227px";
@@ -23,8 +24,14 @@ img.style.left = "50px";
 img.style.position = "absolute";
 document.body.appendChild(img);
 }
-createFloatingImage();
+
+
 // 02. Renderizar “n” imágenes.
+window.addEventListener("mousemove", function (evenData) {
+    console.log(evenData);
+    createFloatingImage(evenData.clientX, evenData.clientY);
+});
+
 // 03. Posicionarlas según el mouse.
 // 04. Mostrarlas en ciclo.
 // 05. Desaparecerlas después de “x” tiempo.
