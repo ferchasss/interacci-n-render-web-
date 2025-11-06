@@ -59,6 +59,7 @@ img.style.top = `${posY - 75}px`;//cadena de caracteres pero con una variable
 img.style.left = posX - (113.5) + "px";
 img.style.position = "absolute";
 img.style.opacity = 0;
+img.style.zIndex = Math.round(Math.random()*10);
 document.body.appendChild(img);
 
  gsap.to(img, {
