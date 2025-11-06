@@ -13,6 +13,7 @@ otros: esquinas redondeadas, bordes, sombra proyectada, etc.
 4.Agregarla al <Documento>.
 5.Agrupar estas instrucciones en una función.
 */
+function createFloatingImage() {
 const img = document.createElement("img")
 img.src = "./assets/p1.jpg";
 img.style.width = "227px";
@@ -21,7 +22,7 @@ img.style.top = "50px";
 img.style.left = "50px";
 img.style.position = "absolute";
 document.body.appendChild(img);
-
+}
 // 02. Renderizar “n” imágenes.
 // 03. Posicionarlas según el mouse.
 // 04. Mostrarlas en ciclo.
